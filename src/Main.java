@@ -4,7 +4,12 @@ public class Main {
     public static void main(String[] args) {
         taskOnePrintInfoAboutYear(2012);
         taskTwoPrintVersionOfOs(1, 2021);
-        taskThreeCalculateDaysOfDelivery(95 , 1);
+        int days = taskThreeCalculateDaysOfDelivery(95);
+        if (days != -1) {
+            System.out.println("Кол-во дней доставки " + days);
+        } else {
+            System.out.println("Доставки нет");
+        }
     }
 
     static void taskOnePrintInfoAboutYear (int year) {
@@ -21,9 +26,9 @@ public class Main {
     static void taskTwoPrintVersionOfOs (int os, int yearOfRelease) {
         int currentYear = LocalDate.now().getYear();
         if (os == 0 && yearOfRelease == currentYear) {
-            System.out.println("Установите версию для IOS");
+            System.out.println("Установите обычную версию для IOS");
         } else if (os == 1 && currentYear == yearOfRelease) {
-            System.out.println("Установите версию для Android");
+            System.out.println("Установите обычную версию для Android");
         } else if (os == 0 && yearOfRelease < currentYear) {
             System.out.println("Установите облегчённую версию для IOS");
         } else if (os == 1 && yearOfRelease < currentYear) {
@@ -33,19 +38,17 @@ public class Main {
         }
     }
 
-    static void taskThreeCalculateDaysOfDelivery (int deliveryDistance, int days) {
+    static int taskThreeCalculateDaysOfDelivery (int deliveryDistance) {
         if (deliveryDistance < 0 || deliveryDistance > 100) {
-            days = days - 1;
-            System.out.println("Доставки нет");
-        } else if (deliveryDistance == 20) {
-            System.out.println("Доставка займёт " + days + " сутки");
-        } else if (deliveryDistance > 20 && deliveryDistance < 60) {
-            days = days + 1;
-            System.out.println("Доставка займёт " + days + " сутки");
-        } else if (deliveryDistance > 60 && deliveryDistance < 100) {
-            days = days + days + days;
-            System.out.println("Доставка займёт " + days + " сутки");
+            return - 1;
         }
-
+        int days = 1;
+        if (deliveryDistance >= 20) {
+            days++;
+        }
+        if (deliveryDistance >= 60) {
+            days++;
+        }
+        return days;
     }
 }
